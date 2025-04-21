@@ -101,7 +101,7 @@ interface Registro {
     }
 
     header {
-      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      background-color: #4CAF50;
       padding: 1rem;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       position: sticky;
