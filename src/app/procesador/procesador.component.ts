@@ -48,12 +48,15 @@ export class ProcesadorComponent {
     for (const bloque of bloques) {
       const lineas = bloque.trim().split('\n');
       let fecha = '';
-      let responsable = '';
       let tasa = 0;
-      let banco = '';
-      let montosBSS: number[] = [];
+      let transacciones: any[] = [];
+      let transaccionActual = {
+        responsable: '',
+        montoBSS: 0,
+        banco: 'MI BANCO'
+      };
 
-      // Primera pasada: recolectar información básica
+      // Primera pasada: recolectar todas las transacciones
       for (const linea of lineas) {
         if (linea.match(/^(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|Domingo)/)) {
           const partes = linea.split(' ');
@@ -68,41 +71,55 @@ export class ProcesadorComponent {
           fecha = `${dia.padStart(2, '0')}/${meses[mes]}/${anio}`;
         }
 
+        if (linea.includes('Mi Banco')) {
+          // Si ya tenemos una transacción completa, la guardamos
+          if (transaccionActual.montoBSS > 0 && transaccionActual.responsable) {
+            transacciones.push({...transaccionActual});
+          }
+          // Iniciamos una nueva transacción
+          transaccionActual = {
+            responsable: '',
+            montoBSS: 0,
+            banco: 'MI BANCO'
+          };
+        }
+
         if (linea.includes('Nombre:')) {
-          responsable = linea.split('Nombre:')[1].trim();
+          transaccionActual.responsable = linea.split('Nombre:')[1].trim();
         }
 
         if (linea.includes('Monto en Bs:')) {
           const monto = parseFloat(linea.split('Monto en Bs:')[1].replace(/\./g, '').replace(',', '.').trim());
           if (!isNaN(monto)) {
-            montosBSS.push(monto);
+            transaccionActual.montoBSS = monto;
           }
         }
 
         if (linea.includes('Tasa:')) {
           tasa = parseFloat(linea.split('Tasa:')[1].replace(',', '.').trim());
         }
+      }
 
-        if (linea.includes('Mi Banco')) {
-          banco = 'MI BANCO';
-        }
+      // Añadir la última transacción si existe
+      if (transaccionActual.montoBSS > 0 && transaccionActual.responsable) {
+        transacciones.push({...transaccionActual});
       }
 
       // Segunda pasada: crear registros con la tasa
-      if (tasa > 0 && montosBSS.length > 0) {
-        for (const montoBSS of montosBSS) {
-          const montoUSD = montoBSS / tasa;
-          this.totalBSS += montoBSS;
+      for (const transaccion of transacciones) {
+        if (tasa > 0) {
+          const montoUSD = transaccion.montoBSS / tasa;
+          this.totalBSS += transaccion.montoBSS;
           this.totalUSD += montoUSD;
 
           this.registros.push({
             fecha,
-            montoBSS,
+            montoBSS: transaccion.montoBSS,
             tasa,
             montoUSD,
-            banco: banco || 'MI BANCO',
+            banco: transaccion.banco,
             empresa,
-            responsable
+            responsable: transaccion.responsable
           });
         }
       }
