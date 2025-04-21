@@ -1,0 +1,85 @@
+<div class="card-container">
+  <div class="card">
+    <h2>Procesador de Cotizaciones</h2>
+    
+    <div class="form-group">
+      <label>Pegue el texto de la cotización</label>
+      <textarea [(ngModel)]="textoEntrada" rows="10" placeholder="Pegue aquí el texto de la cotización..."></textarea>
+    </div>
+
+    <div class="button-group">
+      <button class="primary" (click)="procesarDatos()">Procesar</button>
+      <button class="danger" (click)="limpiarEntrada()">Limpiar Entrada</button>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="registros.length > 0">
+    <h3>Resultados</h3>
+    
+    <div class="registros-container">
+      <div *ngFor="let registro of registros; let i = index">
+        <div class="fecha-container" *ngIf="i === 0 || registros[i-1]?.fecha !== registro.fecha">
+          <span class="fecha">{{registro.fecha}}</span>
+        </div>
+        
+        <div class="registro-card">
+          <div class="registro-header">
+            <span class="banco">{{registro.banco}}</span>
+          </div>
+          <div class="registro-body">
+            <div class="registro-item">
+              <span class="label">Monto BSS</span>
+              <span class="value">{{formatearNumero(registro.montoBSS)}}</span>
+            </div>
+            <div class="registro-item">
+              <span class="label">Tasa</span>
+              <span class="value">{{formatearNumero(registro.tasa)}}</span>
+            </div>
+            <div class="registro-item">
+              <span class="label">Monto USD</span>
+              <span class="value">{{formatearNumero(registro.montoUSD)}}</span>
+            </div>
+            <div class="registro-item">
+              <span class="label">Responsable</span>
+              <span class="value">{{registro.responsable}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="totales-card" *ngIf="i === registros.length - 1">
+          <div class="total-item">
+            <span class="label">Total BSS</span>
+            <span class="value">{{formatearNumero(totalBSS)}}</span>
+          </div>
+          <div class="total-item">
+            <span class="label">Total USD</span>
+            <span class="value">{{formatearNumero(totalUSD)}}</span>
+          </div>
+          <div class="total-item">
+            <span class="label">Estado</span>
+            <span class="value">APROBADO</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="resultados">
+      <div class="total-card">
+        <div class="total-item">
+          <span class="label">Total USD</span>
+          <span class="value">{{formatearNumero(totalUSD)}}</span>
+        </div>
+        <div class="total-item">
+          <span class="label">Comisión (2%)</span>
+          <span class="value">{{formatearNumero(comision)}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="secondary" (click)="copiarTabla()">Copiar tabla</button>
+      <button class="secondary" (click)="copiarTotal()">Copiar total</button>
+      <button class="secondary" (click)="cobrarComision()">Copiar Comisión</button>
+    </div>
+  </div>
+</div> 

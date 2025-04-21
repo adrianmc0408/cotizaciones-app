@@ -1,1 +1,44 @@
-<p>cotizador works!</p>
+<div class="container">
+  <div class="header">
+    <h1>Adi's Exchange Hub</h1>
+    <p class="subtitle">Gestión de cotizaciones</p>
+    
+    <div class="tabs">
+      <button class="tab" routerLink="/generador">
+        <span class="icon">📝</span>
+        Generador
+      </button>
+      <button class="tab" routerLink="/procesador">
+        <span class="icon">📊</span>
+        Procesador
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+    <h2>Generador de Cotizaciones</h2>
+    
+    <div class="form-group">
+      <label>Tasa de cambio</label>
+      <input type="number" placeholder="Ej: 35.50" class="input">
+    </div>
+
+    <div class="form-group">
+      <label>Monto en USD</label>
+      <input type="number" placeholder="Ej: 100" class="input">
+    </div>
+
+    <div class="form-group">
+      <label>Pagador</label>
+      <select class="input">
+        <option value="">Seleccione un pagador</option>
+      </select>
+    </div>
+
+    <div class="button-group">
+      <button class="button primary">Agregar</button>
+      <button class="button secondary">Finalizar y Copiar</button>
+      <button class="button danger">Limpiar</button>
+    </div>
+  </div>
+</div>
