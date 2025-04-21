@@ -1,27 +1,96 @@
-# CotizacionesApp
+# Generador y Procesador de Cotizaciones
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.16.
+Esta es una aplicación web desarrollada en Angular que permite generar y procesar cotizaciones de manera eficiente.
 
-## Development server
+## Características
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Generador de cotizaciones con múltiples pagadores
+- Procesador de cotizaciones con cálculo automático de comisiones
+- Interfaz moderna y responsiva
+- Formateo de números según el estándar venezolano
+- Copia automática al portapapeles
 
-## Code scaffolding
+## Requisitos Previos
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Node.js (versión 14 o superior)
+- Angular CLI
+- Cuenta en Firebase
 
-## Build
+## Instalación
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Clona este repositorio:
+```bash
+git clone [URL_DEL_REPOSITORIO]
+cd cotizaciones-app
+```
 
-## Running unit tests
+2. Instala las dependencias:
+```bash
+npm install
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. Inicia la aplicación en modo desarrollo:
+```bash
+ng serve
+```
 
-## Running end-to-end tests
+## Despliegue en Firebase
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. Instala Firebase CLI si no lo tienes:
+```bash
+npm install -g firebase-tools
+```
 
-## Further help
+2. Inicia sesión en Firebase:
+```bash
+firebase login
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+3. Inicializa Firebase en tu proyecto:
+```bash
+firebase init
+```
+   - Selecciona "Hosting"
+   - Selecciona tu proyecto de Firebase
+   - Usa "dist/cotizaciones-app" como directorio público
+   - Configura como SPA (Single Page Application)
+   - No sobrescribas el index.html
+
+4. Construye la aplicación para producción:
+```bash
+ng build --configuration production
+```
+
+5. Despliega en Firebase:
+```bash
+firebase deploy
+```
+
+## Estructura del Proyecto
+
+- `src/app/app.component.ts` - Componente principal con el generador de cotizaciones
+- `src/app/procesador/procesador.component.ts` - Componente para procesar cotizaciones
+- `src/assets/` - Recursos estáticos
+- `src/environments/` - Configuraciones de entorno
+
+## Uso
+
+### Generador de Cotizaciones
+1. Ingresa la tasa de cambio
+2. Ingresa el monto en USD
+3. Selecciona el pagador
+4. Haz clic en "Agregar" para incluir el registro
+5. Usa "Finalizar y Copiar" para generar el mensaje final
+
+### Procesador de Cotizaciones
+1. Pega el texto de la cotización
+2. Haz clic en "Procesar"
+3. Usa los botones de copiar según necesites
+
+## Contribución
+
+Las contribuciones son bienvenidas. Por favor, abre un issue para discutir los cambios propuestos.
+
+## Licencia
+
+Este proyecto está bajo la Licencia MIT.
