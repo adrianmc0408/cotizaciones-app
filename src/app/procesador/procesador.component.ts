@@ -337,9 +337,23 @@ export class ProcesadorComponent {
 
   copiarTabla() {
     let texto = '';
-    for (const registro of this.registros) {
-      texto += `${registro.fecha}\t${registro.banco}\t${this.formatearNumero(registro.montoBSS)}\t${this.formatearNumero(registro.tasa)}\t${this.formatearNumero(registro.montoUSD)}\t${registro.empresa}\t${registro.responsable}\n`;
+    
+    for (let i = 0; i < this.registros.length; i++) {
+      const registro = this.registros[i];
+      
+      texto += (i === 0 ? '1' : '') + '\t';
+      texto += (i === 0 || (i > 0 && this.registros[i-1]?.fecha !== registro.fecha) ? registro.fecha : '') + '\t';
+      texto += registro.banco + '\t';
+      texto += this.formatearNumero(registro.montoBSS) + '\t';
+      texto += (i === this.registros.length - 1 ? this.formatearNumero(this.totalBSS) : '') + '\t';
+      texto += this.formatearNumero(registro.tasa) + '\t';
+      texto += this.formatearNumero(registro.montoUSD) + '\t';
+      texto += (i === this.registros.length - 1 ? this.formatearNumero(this.totalUSD) : '') + '\t';
+      texto += registro.empresa + '\t';
+      texto += registro.responsable + '\t';
+      texto += (i === this.registros.length - 1 ? 'APROBADO' : '') + '\n';
     }
+    
     navigator.clipboard.writeText(texto)
       .then(() => alert('Tabla copiada al portapapeles'))
       .catch(err => alert('Error al copiar la tabla'));
