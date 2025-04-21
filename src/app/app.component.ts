@@ -48,7 +48,7 @@ interface Registro {
             
             <div class="form-group">
               <label>Tasa de cambio</label>
-              <input type="text" [(ngModel)]="tasa" placeholder="Ej: 35,50">
+              <input type="text" [(ngModel)]="tasa" placeholder="Ej: 35,50" [disabled]="tasaBloqueada">
             </div>
 
             <div class="form-group">
@@ -380,6 +380,7 @@ export class AppComponent {
   montoUSD: string = '';
   pagadorSeleccionado: string = '';
   registros: Registro[] = [];
+  tasaBloqueada: boolean = false;
 
   pagadores: Pagador[] = [
     {
@@ -428,6 +429,8 @@ export class AppComponent {
     });
 
     this.montoUSD = '';
+    this.pagadorSeleccionado = '';
+    this.tasaBloqueada = true;
   }
 
   finalizar() {
@@ -437,7 +440,7 @@ export class AppComponent {
     }
 
     const fecha = new Date();
-    const diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
     const fechaFormateada = `${diasSemana[fecha.getDay()]} ${fecha.getDate()} de ${meses[fecha.getMonth()]} de ${fecha.getFullYear()}`;
@@ -465,5 +468,6 @@ export class AppComponent {
     this.montoUSD = '';
     this.pagadorSeleccionado = '';
     this.registros = [];
+    this.tasaBloqueada = false;
   }
 }

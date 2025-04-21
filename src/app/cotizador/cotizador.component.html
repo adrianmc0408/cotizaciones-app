@@ -20,25 +20,25 @@
     
     <div class="form-group">
       <label>Tasa de cambio</label>
-      <input type="number" placeholder="Ej: 35.50" class="input">
+      <input type="number" [(ngModel)]="tasa" placeholder="Ej: 35.50" class="input" [disabled]="tasaBloqueada">
     </div>
 
     <div class="form-group">
       <label>Monto en USD</label>
-      <input type="number" placeholder="Ej: 100" class="input">
+      <input type="number" [(ngModel)]="montoUSD" placeholder="Ej: 100" class="input">
     </div>
 
     <div class="form-group">
       <label>Pagador</label>
-      <select class="input">
+      <select [(ngModel)]="pagadorSeleccionado" class="input">
         <option value="">Seleccione un pagador</option>
       </select>
     </div>
 
     <div class="button-group">
-      <button class="button primary">Agregar</button>
+      <button class="button primary" (click)="agregarRegistro()">Agregar</button>
       <button class="button secondary">Finalizar y Copiar</button>
-      <button class="button danger">Limpiar</button>
+      <button class="button danger" (click)="limpiar()">Limpiar</button>
     </div>
   </div>
 </div>
