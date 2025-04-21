@@ -23,7 +23,7 @@ interface Registro {
       <header>
         <div class="header-content">
           <div class="logo">
-            <h1>Cotizaciones App</h1>
+            <h1>Adi's Exchange Hub</h1>
             <span class="subtitle">Gestión de cotizaciones</span>
           </div>
           <nav>
