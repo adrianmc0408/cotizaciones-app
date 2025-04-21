@@ -16,7 +16,7 @@ interface Registro {
 
 @Component({
   selector: 'app-root',
-  standalone: true,
+  standalone: true, 
   imports: [CommonModule, FormsModule, ProcesadorComponent],
   template: `
     <div class="app-container">
