@@ -4,8 +4,198 @@ import { Component } from '@angular/core';
   selector: 'app-cotizador',
   standalone: true,
   imports: [],
-  templateUrl: './cotizador.component.html',
-  styleUrl: './cotizador.component.scss'
+  template: `
+    <div class="container">
+      <div class="header">
+        <h1>Adi's Exchange Hub</h1>
+        <p class="subtitle">Gestión de cotizaciones</p>
+        
+        <div class="tabs">
+          <button class="tab" routerLink="/generador">
+            <span class="icon">📝</span>
+            Generador
+          </button>
+          <button class="tab" routerLink="/procesador">
+            <span class="icon">📊</span>
+            Procesador
+          </button>
+        </div>
+      </div>
+
+      <div class="content">
+        <h2>Generador de Cotizaciones</h2>
+        
+        <div class="form-group">
+          <label>Tasa de cambio</label>
+          <input type="number" placeholder="Ej: 35.50" class="input">
+        </div>
+
+        <div class="form-group">
+          <label>Monto en USD</label>
+          <input type="number" placeholder="Ej: 100" class="input">
+        </div>
+
+        <div class="form-group">
+          <label>Pagador</label>
+          <select class="input">
+            <option value="">Seleccione un pagador</option>
+          </select>
+        </div>
+
+        <div class="button-group">
+          <button class="button primary">Agregar</button>
+          <button class="button secondary">Finalizar y Copiar</button>
+          <button class="button danger">Limpiar</button>
+        </div>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      margin: 0.5rem 0 1.5rem;
+      opacity: 0.9;
+      font-size: 0.9rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .tab {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      color: white;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tab:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .icon {
+      font-size: 1.2rem;
+    }
+
+    .content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin: 0 0 1.5rem;
+      color: #333;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.75rem;
+      color: #666;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .input {
+      width: 100%;
+      padding: 0.875rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      background-color: #f8f9fa;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: #4CAF50;
+      background-color: white;
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+      width: 100%;
+    }
+
+    .button {
+      width: 100%;
+      padding: 0.875rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+
+    .primary {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .secondary {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    .danger {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    @media (min-width: 768px) {
+      .button-group {
+        flex-direction: row;
+      }
+    }
+  `]
 })
 export class CotizadorComponent {
 

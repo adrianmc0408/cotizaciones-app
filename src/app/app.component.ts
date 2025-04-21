@@ -102,54 +102,60 @@ interface Registro {
 
     header {
       background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-      padding: 1.5rem 2rem;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      margin-bottom: 2rem;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .header-content {
       max-width: 1200px;
       margin: 0 auto;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      gap: 1rem;
     }
 
     .logo {
       color: white;
+      text-align: center;
     }
 
     h1 {
       color: white;
       margin: 0;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 600;
     }
 
     .subtitle {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       opacity: 0.9;
     }
 
     nav {
       display: flex;
-      align-items: center;
+      justify-content: center;
     }
 
     .nav-buttons {
       display: flex;
-      gap: 1rem;
+      gap: 0.5rem;
       background-color: rgba(255, 255, 255, 0.1);
       padding: 0.5rem;
       border-radius: 50px;
       backdrop-filter: blur(10px);
+      width: 100%;
+      max-width: 300px;
     }
 
     .nav-buttons button {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
+      padding: 0.5rem 1rem;
       border: none;
       border-radius: 25px;
       background: transparent;
@@ -157,6 +163,7 @@ interface Registro {
       cursor: pointer;
       transition: all 0.3s ease;
       font-weight: 500;
+      flex: 1;
     }
 
     .nav-buttons button:hover {
@@ -169,43 +176,41 @@ interface Registro {
     }
 
     .nav-buttons button .icon {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
 
     .nav-buttons button .text {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
 
     main {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 1rem;
     }
 
     .card-container {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 2rem;
-      max-width: 800px;
-      margin: 0 auto;
+      gap: 1rem;
     }
 
     .card {
       background-color: white;
       border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     h2 {
       color: #333;
-      margin: 0 0 1.5rem 0;
-      font-size: 1.5rem;
+      margin: 0 0 1rem 0;
+      font-size: 1.3rem;
       font-weight: 600;
     }
 
     .form-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     label {
@@ -213,35 +218,41 @@ interface Registro {
       margin-bottom: 0.5rem;
       color: #666;
       font-weight: 500;
+      font-size: 0.9rem;
     }
 
     input, select {
       width: 100%;
       padding: 0.75rem;
       border: 1px solid #ddd;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 1rem;
       transition: border-color 0.3s ease;
+      background-color: #f8f9fa;
+      box-sizing: border-box;
     }
 
     input:focus, select:focus {
       outline: none;
       border-color: #4CAF50;
+      background-color: white;
     }
 
     .button-group {
       display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
     }
 
     button {
-      padding: 0.75rem 1.5rem;
+      padding: 0.75rem;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.3s ease;
+      font-size: 0.9rem;
     }
 
     button.primary {
@@ -272,23 +283,26 @@ interface Registro {
       background-color: #f8f9fa;
       border-radius: 8px;
       padding: 1rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
 
     .registro-header {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 0.5rem;
       margin-bottom: 0.5rem;
     }
 
     .pagador {
       font-weight: 500;
       color: #333;
+      font-size: 0.9rem;
     }
 
     .monto {
       color: #4CAF50;
       font-weight: 600;
+      font-size: 0.9rem;
     }
 
     .registro-details {
@@ -297,7 +311,66 @@ interface Registro {
 
     .total {
       color: #666;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
+    }
+
+    @media (min-width: 768px) {
+      header {
+        padding: 1.5rem 2rem;
+      }
+
+      .header-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        text-align: left;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .subtitle {
+        font-size: 0.9rem;
+      }
+
+      .nav-buttons {
+        width: auto;
+      }
+
+      .nav-buttons button {
+        padding: 0.75rem 1.5rem;
+      }
+
+      main {
+        padding: 2rem;
+      }
+
+      .card-container {
+        gap: 2rem;
+      }
+
+      .card {
+        padding: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .button-group {
+        flex-direction: row;
+        gap: 1rem;
+      }
+
+      .registro-header {
+        flex-direction: row;
+        justify-content: space-between;
+      }
     }
   `]
 })

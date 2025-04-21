@@ -34,39 +34,52 @@ interface Registro {
 
       <div class="card" *ngIf="registros.length > 0">
         <h3>Resultados</h3>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>NRO OPERACION</th>
-                <th>FECHA</th>
-                <th>BANCO</th>
-                <th>MONTO (BSS)</th>
-                <th>TOTAL (BSS)</th>
-                <th>TASA</th>
-                <th>MONTO (USD)</th>
-                <th>TOTAL (USD)</th>
-                <th>EMPRESA</th>
-                <th>RESPONSABLE</th>
-                <th>ESTADO</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let registro of registros; let i = index">
-                <td>{{i === 0 ? '1' : ''}}</td>
-                <td>{{i === 0 || registros[i-1]?.fecha !== registro.fecha ? registro.fecha : ''}}</td>
-                <td>{{registro.banco}}</td>
-                <td>{{formatearNumero(registro.montoBSS)}}</td>
-                <td>{{i === registros.length - 1 ? formatearNumero(totalBSS) : ''}}</td>
-                <td>{{formatearNumero(registro.tasa)}}</td>
-                <td>{{formatearNumero(registro.montoUSD)}}</td>
-                <td>{{i === registros.length - 1 ? formatearNumero(totalUSD) : ''}}</td>
-                <td>{{registro.empresa}}</td>
-                <td>{{registro.responsable}}</td>
-                <td>{{i === registros.length - 1 ? 'APROBADO' : ''}}</td>
-              </tr>
-            </tbody>
-          </table>
+        
+        <div class="registros-container">
+          <div *ngFor="let registro of registros; let i = index">
+            <div class="fecha-container" *ngIf="i === 0 || registros[i-1]?.fecha !== registro.fecha">
+              <span class="fecha">{{registro.fecha}}</span>
+            </div>
+            
+            <div class="registro-card">
+              <div class="registro-header">
+                <span class="banco">{{registro.banco}}</span>
+              </div>
+              <div class="registro-body">
+                <div class="registro-item">
+                  <span class="label">Monto BSS</span>
+                  <span class="value">{{formatearNumero(registro.montoBSS)}}</span>
+                </div>
+                <div class="registro-item">
+                  <span class="label">Tasa</span>
+                  <span class="value">{{formatearNumero(registro.tasa)}}</span>
+                </div>
+                <div class="registro-item">
+                  <span class="label">Monto USD</span>
+                  <span class="value">{{formatearNumero(registro.montoUSD)}}</span>
+                </div>
+                <div class="registro-item">
+                  <span class="label">Responsable</span>
+                  <span class="value">{{registro.responsable}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="totales-card" *ngIf="i === registros.length - 1">
+              <div class="total-item">
+                <span class="label">Total BSS</span>
+                <span class="value">{{formatearNumero(totalBSS)}}</span>
+              </div>
+              <div class="total-item">
+                <span class="label">Total USD</span>
+                <span class="value">{{formatearNumero(totalUSD)}}</span>
+              </div>
+              <div class="total-item">
+                <span class="label">Estado</span>
+                <span class="value">APROBADO</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="resultados">
@@ -85,7 +98,7 @@ interface Registro {
         <div class="button-group">
           <button class="secondary" (click)="copiarTabla()">Copiar tabla</button>
           <button class="secondary" (click)="copiarTotal()">Copiar total</button>
-          <button class="secondary" (click)="cobrarComision()">Cobrar Comisión</button>
+          <button class="secondary" (click)="cobrarComision()">Copiar Comisión</button>
         </div>
       </div>
     </div>
@@ -94,7 +107,7 @@ interface Registro {
     .card-container {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: 1rem;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -102,19 +115,19 @@ interface Registro {
     .card {
       background-color: white;
       border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     h2, h3 {
       color: #333;
-      margin: 0 0 1.5rem 0;
-      font-size: 1.5rem;
+      margin: 0 0 1rem 0;
+      font-size: 1.3rem;
       font-weight: 600;
     }
 
     .form-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     label {
@@ -122,36 +135,45 @@ interface Registro {
       margin-bottom: 0.5rem;
       color: #666;
       font-weight: 500;
+      font-size: 0.9rem;
     }
 
     textarea {
       width: 100%;
       padding: 0.75rem;
       border: 1px solid #ddd;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 1rem;
       resize: vertical;
       transition: border-color 0.3s ease;
+      background-color: #f8f9fa;
+      box-sizing: border-box;
     }
 
     textarea:focus {
       outline: none;
       border-color: #4CAF50;
+      background-color: white;
     }
 
     .button-group {
       display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      width: 100%;
     }
 
     button {
-      padding: 0.75rem 1.5rem;
+      width: 100%;
+      padding: 0.75rem;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.3s ease;
+      font-size: 0.9rem;
+      box-sizing: border-box;
     }
 
     button.primary {
@@ -174,64 +196,129 @@ interface Registro {
       transform: translateY(-1px);
     }
 
-    .table-container {
-      overflow-x: auto;
-      margin: 1.5rem 0;
+    .registros-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .fecha-container {
+      margin: 1rem 0 0.5rem;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid #4CAF50;
+    }
+
+    .fecha {
+      font-weight: 600;
+      color: #333;
+      font-size: 1rem;
+    }
+
+    .registro-card {
+      background-color: #f8f9fa;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      padding: 1rem;
+      margin-bottom: 1rem;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-    }
-
-    th, td {
-      padding: 0.75rem;
-      text-align: center;
+    .registro-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
       border-bottom: 1px solid #eee;
     }
 
-    th {
-      background-color: #f8f9fa;
-      font-weight: 600;
-      color: #333;
+    .banco {
+      color: #4CAF50;
+      font-weight: 500;
+      font-size: 0.9rem;
     }
 
-    tr:hover {
-      background-color: #f8f9fa;
+    .registro-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
     }
 
-    .resultados {
-      margin: 2rem 0;
-    }
-
-    .total-card {
+    .registro-item {
       display: flex;
-      gap: 2rem;
-      justify-content: center;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .registro-item .label {
+      color: #666;
+      font-size: 0.8rem;
+    }
+
+    .registro-item .value {
+      color: #333;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .totales-card {
       background-color: #f8f9fa;
-      padding: 1.5rem;
       border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
     }
 
     .total-item {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
+      gap: 0.25rem;
     }
 
-    .label {
+    .total-item .label {
       color: #666;
+      font-size: 0.8rem;
+    }
+
+    .total-item .value {
+      color: #4CAF50;
+      font-weight: 600;
       font-size: 0.9rem;
     }
 
-    .value {
-      color: #4CAF50;
-      font-size: 1.2rem;
-      font-weight: 600;
+    .resultados {
+      margin: 1.5rem 0;
+    }
+
+    .total-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background-color: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    @media (min-width: 768px) {
+      .button-group {
+        flex-direction: row;
+        gap: 1rem;
+      }
+
+      .total-card {
+        flex-direction: row;
+        gap: 2rem;
+        justify-content: center;
+        padding: 1.5rem;
+      }
+
+      .registro-body {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .totales-card {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
   `]
 })
