@@ -1,7 +1,7 @@
 {
   "name": "Adi's Exchange Hub",
   "short_name": "Adi's Exchange",
-  "theme_color": "#2196F3",
+  "theme_color": "#4CAF50",
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "./",
