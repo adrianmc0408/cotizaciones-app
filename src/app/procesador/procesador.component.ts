@@ -34,35 +34,32 @@ export class ProcesadorComponent {
   }
 
   private validarFormatoNumero(numero: string): boolean {
-    // Verificar que tenga exactamente una coma para decimales
-    const partes = numero.split(',');
-    if (partes.length !== 2) {
-      return false;
-    }
-
-    // Verificar que la parte decimal tenga exactamente 2 dígitos
-    if (partes[1].length !== 2) {
-      return false;
-    }
-
-    // Verificar que la parte entera use puntos para miles
-    const parteEntera = partes[0];
-    const grupos = parteEntera.split('.');
+    // Eliminar espacios en blanco
+    numero = numero.trim();
     
-    // El último grupo puede tener 1-3 dígitos
-    const ultimoGrupo = grupos[grupos.length - 1];
-    if (ultimoGrupo.length < 1 || ultimoGrupo.length > 3) {
+    // Verificar que solo contenga números, puntos y comas
+    if (!/^[\d.,]+$/.test(numero)) {
       return false;
     }
-
-    // Los grupos intermedios deben tener exactamente 3 dígitos
-    for (let i = 0; i < grupos.length - 1; i++) {
-      if (grupos[i].length !== 3) {
-        return false;
-      }
+    
+    // Verificar que tenga máximo una coma
+    if ((numero.match(/,/g) || []).length > 1) {
+      return false;
     }
-
+    
+    // Verificar que tenga máximo un punto por cada 3 dígitos
+    const digitos = numero.replace(/[.,]/g, '').length;
+    const puntos = (numero.match(/\./g) || []).length;
+    if (puntos > Math.ceil(digitos / 3)) {
+      return false;
+    }
+    
     return true;
+  }
+
+  private normalizarNumero(numero: string): number {
+    // Eliminar todos los puntos y reemplazar coma por punto
+    return parseFloat(numero.replace(/\./g, '').replace(',', '.'));
   }
 
   procesarDatos() {
@@ -149,11 +146,11 @@ export class ProcesadorComponent {
           }
           
           if (!this.validarFormatoNumero(montoStr)) {
-            alert(`Error en la línea ${numeroLinea}: El monto "${montoStr}" no tiene el formato correcto. Debe usar punto (.) para miles y coma (,) para decimales. Ejemplo: 1.234.567,89`);
+            alert(`Error en la línea ${numeroLinea}: El monto "${montoStr}" no tiene el formato correcto. Debe ser un número válido.`);
             return;
           }
           
-          const monto = parseFloat(montoStr.replace(/\./g, '').replace(',', '.').trim());
+          const monto = this.normalizarNumero(montoStr);
           if (isNaN(monto)) {
             alert(`Error en la línea ${numeroLinea}: El monto "${montoStr}" no es un número válido`);
             return;
@@ -169,11 +166,11 @@ export class ProcesadorComponent {
           }
           
           if (!this.validarFormatoNumero(tasaStr)) {
-            alert(`Error en la línea ${numeroLinea}: La tasa "${tasaStr}" no tiene el formato correcto. Debe usar punto (.) para miles y coma (,) para decimales. Ejemplo: 1.234,56`);
+            alert(`Error en la línea ${numeroLinea}: La tasa "${tasaStr}" no tiene el formato correcto. Debe ser un número válido.`);
             return;
           }
           
-          const nuevaTasa = parseFloat(tasaStr.replace(/\./g, '').replace(',', '.').trim());
+          const nuevaTasa = this.normalizarNumero(tasaStr);
           if (isNaN(nuevaTasa)) {
             alert(`Error en la línea ${numeroLinea}: La tasa "${tasaStr}" no es un número válido`);
             return;
